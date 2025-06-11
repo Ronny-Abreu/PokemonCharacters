@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PokéDex - Explora el Mundo Pokémon</title>
+    
+    <!-- Favicon - Pokeball Icon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23ff1744'/><circle cx='50' cy='50' r='45' fill='none' stroke='%23000' stroke-width='8'/><rect x='5' y='46' width='90' height='8' fill='%23000'/><circle cx='50' cy='50' r='12' fill='%23fff' stroke='%23000' stroke-width='4'/></svg>" type="image/svg+xml">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- TailwindCSS Custom Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'robin-egg-blue': '#6ec6cb',
+                        'black-olive': '#30382f',
+                        'light-blue': '#a8e6ea',
+                        'dark-green': '#1a201a'
+                    },
+                    fontFamily: {
+                        'poppins': ['Poppins', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-poppins bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 min-h-screen">
+    
+    <!-- Header - Same for all pages -->
+    <header id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300">
+        <nav class="container mx-auto px-4 py-4">
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex items-center justify-between">
+                <div class="flex items-center">
+                    <img src="images/pokemon-logo.png" alt="Pokémon Logo" class="h-16 legendary-title">
+                </div>
+                
+                <div class="flex items-center space-x-6">
+                    <a href="#home" class="text-white hover:text-robin-egg-blue transition-colors duration-300">Inicio</a>
+                    <a href="#pokemon" class="text-white hover:text-robin-egg-blue transition-colors duration-300">Pokémon</a>
+                    <a href="#about" class="text-white hover:text-robin-egg-blue transition-colors duration-300">Acerca</a>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation -->
+            <div class="md:hidden flex items-center justify-between">
+                <div class="flex items-center">
+                    <img src="images/pokemon-logo.png" alt="Pokémon Logo" class="h-10 legendary-title">
+                </div>
+                <button id="mobileMenuBtn" class="text-white text-xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Subtitle Section -->
+    <!-- <div class=" top-20 left-0 right-0 z-40 text-center py-2">
+        <p class="text-sm text-gray-300">
+            Descubre los Pokémon más poderosos del universo
+        </p>
+    </div> -->
+
+    <!-- Mobile Side Menu -->
+    <div id="mobileMenu" class="fixed inset-0 z-50 hidden">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" id="mobileMenuOverlay"></div>
+        <div id="mobileMenuContent" class="absolute left-0 top-0 h-full w-80 bg-gradient-to-b from-purple-900 to-indigo-900 transform -translate-x-full transition-transform duration-300">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-8">
+                    <div class="flex items-center space-x-3">
+                        <img src="images/pokemon-logo.png" alt="Pokémon Logo" class="h-8">
+                    </div>
+                    <button id="closeMobileMenu" class="text-white text-xl">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <nav class="space-y-6">
+                    <a href="#home" class="block text-white text-lg hover:text-robin-egg-blue transition-colors duration-300 py-3 border-b border-white/20">
+                        <i class="fas fa-home mr-3"></i>
+                        Inicio
+                    </a>
+                    <a href="#pokemon" class="block text-white text-lg hover:text-robin-egg-blue transition-colors duration-300 py-3 border-b border-white/20">
+                        <i class="fas fa-search mr-3"></i>
+                        Pokémon
+                    </a>
+                    <a href="#about" class="block text-white text-lg hover:text-robin-egg-blue transition-colors duration-300 py-3 border-b border-white/20">
+                        <i class="fas fa-info-circle mr-3"></i>
+                        Acerca
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section with Legendary Pokemon -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden pt-32">
+        <!-- Animated Background -->
+        <div class="absolute inset-0 bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
+            <div class="absolute inset-0 bg-black opacity-40"></div>
+            <!-- Animated particles -->
+            <div class="particles absolute inset-0"></div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="relative z-10 container mx-auto px-4 h-full flex flex-col justify-center">
+            <!-- Pokemon Gallery -->
+            <div class="flex-1 flex items-center justify-center">
+                <div class="w-full max-w-6xl">
+                    <!-- Desktop Layout -->
+                    <div class="hidden md:grid grid-cols-3 gap-6 items-center">
+                        <!-- Left Column -->
+                        <div class="flex flex-col space-y-6">
+                            <div class="legendary-pokemon-card" data-pokemon-id="150">
+                                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png" alt="Mewtwo" class="legendary-pokemon-img">
+                                <div class="pokemon-name">Mewtwo</div>
+                            </div>
+                            <div class="legendary-pokemon-card" data-pokemon-id="144">
+                                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/144.png" alt="Articuno" class="legendary-pokemon-img">
+                                <div class="pokemon-name">Articuno</div>
+                            </div>
+                            <div class="legendary-pokemon-card" data-pokemon-id="145">
+                                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/145.png" alt="Zapdos" class="legendary-pokemon-img">
+                                <div class="pokemon-name">Zapdos</div>
+                            </div>
+                            <div class="legendary-pokemon-card" data-pokemon-id="146">
+                                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/146.png" alt="Moltres" class="legendary-pokemon-img">
+                                <div class="pokemon-name">Moltres</div>
+                            </div>
+                            <div class="legendary-pokemon-card" data-pokemon-id="483">
+                                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/483.png" alt="Dialga" class="legendary-pokemon-img">
+                                <div class="pokemon-name">Dialga</div>
+                            </div>
+                        </div>
+
+                        <!-- Central Area -->
+                        <div class="flex flex-col items-center justify-center space-y-8">
+                            <!-- Central Pokeball -->
+                            <div id="pokeball-container" class="relative">
+                                <div id="pokeball" class="pokeball">
+                                    <div class="pokeball-top"></div>
+                                    <div class="pokeball-bottom"></div>
+                                    <div class="pokeball-center">
+                                        <div class="pokeball-button"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Selected Pokemon Display -->
+                                <div id="selected-pokemon" class="selected-pokemon-display hidden">
+                                    <img id="selected-pokemon-img" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png" alt="" class="selected-pokemon-image">
+                                    <h3 id="selected-pokemon-name" class="selected-pokemon-name"></h3>
+                                    <p id="selected-pokemon-type" class="selected-pokemon-type"></p>
+                                </div>
+                            </div><br><br><br><br><br><br><br><br><br> <!--TENGO PROBLEMAS PARA ADAPTAR EL BOTON DE EXPLORAR, POR EL MOMENTO DEJARÉ ESTOS BR-->
+                            
+                            <button onclick="scrollToPokemon()" class="mt-4 bg-gradient-to-r from-yellow-400 to-red-500 text-black px-6 py-3 rounded-full text-base font-bold hover:from-yellow-300 hover:to-red-400 transform hover:scale-105 transition-all duration-300 shadow-2xl">
+                                <i class="fas fa-search mr-2"></i>
+                                Explorar Todos los Pokémon
+                            </button>
+                        </div>
+
+                        <!-- Right Column -->
+                        <div class="flex flex-col space-y-6">
+                            <div class="legendary-pokemon-card" data-pokemon-id="249">
+                                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/249.png" alt="Lugia" class="legendary-pokemon-img">
+                                <div class="pokemon-name">Lugia</div>
+                            </div>
+                            <div class="legendary-pokemon-card" data-pokemon-id="250">
+                                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/250.png" alt="Ho-Oh" class="legendary-pokemon-img">
+                                <div class="pokemon-name">Ho-Oh</div>
+                            </div>
+                            <div class="legendary-pokemon-card" data-pokemon-id="151">
+                                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/151.png" alt="Mew" class="legendary-pokemon-img">
+                                <div class="pokemon-name">Mew</div>
+                            </div>
+                            <div class="legendary-pokemon-card" data-pokemon-id="384">
+                                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/384.png" alt="Rayquaza" class="legendary-pokemon-img">
+                                <div class="pokemon-name">Rayquaza</div>
+                            </div>
+                            <div class="legendary-pokemon-card" data-pokemon-id="484">
+                                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/484.png" alt="Palkia" class="legendary-pokemon-img">
+                                <div class="pokemon-name">Palkia</div>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <!-- Mobile Layout -->
+                    <div class="md:hidden flex flex-col items-center">
+                        <!-- Central Pokeball Container -->
+                        <div class="relative mb-8 z-10" style="height: 200px;">
+                            <div id="pokeball-container-mobile" class="absolute top-0 left-1/2 transform -translate-x-1/2">
+                                <div id="pokeball-mobile" class="pokeball-mobile">
+                                    <div class="pokeball-top"></div>
+                                    <div class="pokeball-bottom"></div>
+                                    <div class="pokeball-center">
+                                        <div class="pokeball-button"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Selected Pokemon Display Mobile -->
+                                <div id="selected-pokemon-mobile" class="selected-pokemon-display-mobile hidden">
+                                    <img id="selected-pokemon-img-mobile" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png" alt="" class="selected-pokemon-image-mobile">
+                                    <h3 id="selected-pokemon-name-mobile" class="selected-pokemon-name-mobile"></h3>
+                                    <p id="selected-pokemon-type-mobile" class="selected-pokemon-type-mobile"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onclick="scrollToPokemon()" class="mb-4 bg-gradient-to-r from-yellow-400 to-red-500 text-black px-4 py-2 rounded-full text-sm font-bold hover:from-yellow-300 hover:to-red-400 transform hover:scale-105 transition-all duration-300 shadow-2xl">
+                            <i class="fas fa-search mr-1"></i>
+                            Explorar Todos
+                        </button>
+
+                        <!-- Pokemon Grid -->
+                        <div class="w-full max-w-sm mt-4">
+                            <div class="grid grid-cols-4 gap-2">
+                                <!-- Row 1 -->
+                                <div class="legendary-pokemon-card-mobile" data-pokemon-id="150">
+                                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png" alt="Mewtwo" class="legendary-pokemon-img-mobile">
+                                    <div class="pokemon-name-mobile">Mewtwo</div>
+                                </div>
+                                <div class="col-span-2"></div> <!-- Empty space -->
+                                <div class="legendary-pokemon-card-mobile" data-pokemon-id="249">
+                                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/249.png" alt="Lugia" class="legendary-pokemon-img-mobile">
+                                    <div class="pokemon-name-mobile">Lugia</div>
+                                </div>
+                                
+                                <!-- Row 2 -->
+                                <div class="legendary-pokemon-card-mobile" data-pokemon-id="144">
+                                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/144.png" alt="Articuno" class="legendary-pokemon-img-mobile">
+                                    <div class="pokemon-name-mobile">Articuno</div>
+                                </div>
+                                <div class="legendary-pokemon-card-mobile" data-pokemon-id="145">
+                                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/145.png" alt="Zapdos" class="legendary-pokemon-img-mobile">
+                                    <div class="pokemon-name-mobile">Zapdos</div>
+                                </div>
+                                <div class="legendary-pokemon-card-mobile" data-pokemon-id="146">
+                                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/146.png" alt="Moltres" class="legendary-pokemon-img-mobile">
+                                    <div class="pokemon-name-mobile">Moltres</div>
+                                </div>
+                                <div class="legendary-pokemon-card-mobile" data-pokemon-id="250">
+                                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/250.png" alt="Ho-Oh" class="legendary-pokemon-img-mobile">
+                                    <div class="pokemon-name-mobile">Ho-Oh</div>
+                                </div>
+                                
+                                <!-- Row 3 -->
+                                <div class="legendary-pokemon-card-mobile" data-pokemon-id="483">
+                                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/483.png" alt="Dialga" class="legendary-pokemon-img-mobile">
+                                    <div class="pokemon-name-mobile">Dialga</div>
+                                </div>
+                                <div class="legendary-pokemon-card-mobile" data-pokemon-id="151">
+                                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/151.png" alt="Mew" class="legendary-pokemon-img-mobile">
+                                    <div class="pokemon-name-mobile">Mew</div>
+                                </div>
+                                <div class="legendary-pokemon-card-mobile" data-pokemon-id="384">
+                                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/384.png" alt="Rayquaza" class="legendary-pokemon-img-mobile">
+                                    <div class="pokemon-name-mobile">Rayquaza</div>
+                                </div>
+                                <div class="legendary-pokemon-card-mobile" data-pokemon-id="484">
+                                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/484.png" alt="Palkia" class="legendary-pokemon-img-mobile">
+                                    <div class="pokemon-name-mobile">Palkia</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search and Filter Section -->
+    <section id="pokemon" class="py-16 relative overflow-hidden">
+
+        <div class="absolute inset-0 bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
+            <div class="absolute inset-0 bg-black opacity-40"></div>
+            <div class="particles absolute inset-0"></div>
+        </div>
+        
+        <div class="relative z-10 container mx-auto px-4">
+            <h3 class="text-4xl font-bold text-center text-white mb-12" data-aos="fade-up">
+                Busca tu Pokémon Favorito
+            </h3>
+            
+            <!-- Search Bar -->
+            <div class="max-w-4xl mx-auto mb-8" data-aos="fade-up" data-aos-delay="100">
+                <div class="relative">
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Buscar Pokémon por nombre..."
+                        class="w-full px-6 py-4 text-lg rounded-full border-2 border-white/30 bg-white/10 backdrop-blur-md text-white placeholder-white/70 focus:border-robin-egg-blue focus:outline-none transition-colors duration-300 pl-14"
+                    >
+                    <i class="fas fa-search absolute left-5 top-1/2 transform -translate-y-1/2 text-white/70 text-xl"></i>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="max-w-6xl mx-auto mb-12" data-aos="fade-up" data-aos-delay="200">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <select id="typeFilter" class="px-4 py-3 rounded-lg border-2 border-white/30 bg-white/10 backdrop-blur-md text-white focus:border-robin-egg-blue focus:outline-none">
+                        <option value="" class="text-black">Todos los tipos</option>
+                    </select>
+                    
+                    <select id="sortBy" class="px-4 py-3 rounded-lg border-2 border-white/30 bg-white/10 backdrop-blur-md text-white focus:border-robin-egg-blue focus:outline-none">
+                        <option value="id" class="text-black">Ordenar por ID</option>
+                        <option value="name" class="text-black">Ordenar por Nombre</option>
+                        <option value="height" class="text-black">Ordenar por Altura</option>
+                        <option value="weight" class="text-black">Ordenar por Peso</option>
+                    </select>
+                    
+                    <input 
+                        type="range" 
+                        id="heightFilter" 
+                        min="1" 
+                        max="200" 
+                        value="200"
+                        class="px-4 py-3 rounded-lg border-2 border-white/30"
+                        title="Filtrar por altura máxima"
+                    >
+                    
+                    <input 
+                        type="range" 
+                        id="weightFilter" 
+                        min="1" 
+                        max="1000" 
+                        value="1000"
+                        class="px-4 py-3 rounded-lg border-2 border-white/30"
+                        title="Filtrar por peso máximo"
+                    >
+                </div>
+            </div>
+
+            <!-- Loading Spinner -->
+            <div id="loadingSpinner" class="text-center py-12">
+                <div class="inline-block animate-spin rounded-full h-16 w-16 border-b-4 border-white"></div>
+                <p class="mt-4 text-white text-lg">Cargando Pokémon...</p>
+            </div>
+
+            <!-- Pokemon Grid -->
+            <div id="pokemonGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 max-w-7xl mx-auto">
+                <!-- Pokemon cards will be inserted here -->
+            </div>
+
+            <!-- Load More Button -->
+            <div class="text-center mt-12">
+                <button id="loadMoreBtn" class="bg-white/20 backdrop-blur-md text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white/30 transform hover:scale-105 transition-all duration-300 shadow-lg hidden border border-white/30">
+                    <i class="fas fa-plus mr-2"></i>
+                    Cargar Más Pokémon
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Pokemon Display -->
+    <div id="featuredPokemon" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full transform scale-95 transition-transform duration-300" id="featuredCard">
+            <button onclick="closeFeaturedPokemon()" class="absolute top-4 right-4 text-gray-500 hover:text-black text-2xl">
+                <i class="fas fa-times"></i>
+            </button>
+            <div id="featuredContent">
+                <!-- Featured pokemon content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-black-olive text-white">
+        <div class="container mx-auto px-4 text-center" data-aos="fade-up">
+            <h3 class="text-4xl font-bold mb-8">Acerca de PokéDex</h3>
+            <p class="text-xl max-w-3xl mx-auto mb-12">
+                Esta PokéDex interactiva te permite explorar el fascinante mundo de los Pokémon. 
+                Descubre sus tipos, habilidades, estadísticas y mucho más utilizando la API oficial de Pokémon.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-16 h-16 bg-robin-egg-blue rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-search text-black-olive text-2xl"></i>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-2">Búsqueda Avanzada</h4>
+                    <p>Encuentra cualquier Pokémon por nombre, tipo o características específicas.</p>
+                </div>
+                
+                <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-16 h-16 bg-robin-egg-blue rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-filter text-black-olive text-2xl"></i>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-2">Filtros Inteligentes</h4>
+                    <p>Organiza y filtra Pokémon por tipo, altura, peso y más criterios.</p>
+                </div>
+                
+                <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-16 h-16 bg-robin-egg-blue rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-info-circle text-black-olive text-2xl"></i>
+                    </div>
+                    <h4 class="text-xl font-semibold mb-2">Información Detallada</h4>
+                    <p>Accede a estadísticas completas, habilidades y datos de cada Pokémon.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark-green text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-10 h-10 bg-robin-egg-blue rounded-full flex items-center justify-center">
+                            <i class="fas fa-dragon text-black-olive"></i>
+                        </div>
+                        <h4 class="text-xl font-bold">PokéDex</h4>
+                    </div>
+                    <p class="text-gray-300">
+                        Tu guía completa para explorar el mundo Pokémon. Datos actualizados desde la API oficial.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Enlaces Rápidos</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-300 hover:text-robin-egg-blue transition-colors">Inicio</a></li>
+                        <li><a href="#pokemon" class="text-gray-300 hover:text-robin-egg-blue transition-colors">Pokémon</a></li>
+                        <li><a href="#about" class="text-gray-300 hover:text-robin-egg-blue transition-colors">Acerca</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Developer</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/Ronny-Abreu" target="_blank" class="w-10 h-10 bg-robin-egg-blue rounded-full flex items-center justify-center hover:bg-light-blue transition-colors">
+                            <i class="fab fa-github text-black-olive"></i>
+                        </a>
+                        <a href="https://instagram.com/abreuronny_" target="_blank" class="w-10 h-10 bg-robin-egg-blue rounded-full flex items-center justify-center hover:bg-light-blue transition-colors">
+                            <i class="fab fa-instagram text-black-olive"></i>
+                        </a>
+                        <a href="https://linkedin.com" target="_blank" class="w-10 h-10 bg-robin-egg-blue rounded-full flex items-center justify-center hover:bg-light-blue transition-colors">
+                            <i class="fab fa-linkedin text-black-olive"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-600 mt-8 pt-8 text-center">
+                <p class="text-gray-300">
+                    © 2025 PokéDex. Desarrollado por Ronny-Abreu. 
+                    Datos proporcionados por <a href="https://pokeapi.co" target="_blank" class="text-robin-egg-blue hover:underline">PokéAPI</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Pokemon Modal -->
+    <div id="pokemonModal">
+      <div class="modal-content">
+        <button class="modal-close" onclick="closePokemonModal()">
+          <i class="fas fa-times"></i>
+        </button>
+        
+        <div class="modal-header">
+          <img id="modalPokemonImg" src="/placeholder.svg" alt="" class="modal-pokemon-img">
+          <div class="modal-pokemon-info">
+            <h2 id="modalPokemonName"></h2>
+            <div class="pokemon-id" id="modalPokemonId"></div>
+            <div id="modalPokemonTypes"></div>
+          </div>
+        </div>
+        
+        <div class="modal-body">
+          <div class="modal-section">
+            <div class="modal-section-title">Estadísticas Base</div>
+            <div class="stat-grid" id="modalPokemonStats">
+              <!-- Stats will be inserted here -->
+            </div>
+          </div>
+          
+          <div class="modal-section">
+            <div class="modal-section-title">Habilidades</div>
+            <div id="modalPokemonAbilities">
+              <!-- Abilities will be inserted here -->
+            </div>
+          </div>
+          
+          <div class="modal-section">
+            <div class="modal-section-title">Información Adicional</div>
+            <div class="stat-grid">
+              <div class="stat-item">
+                <div class="stat-value" id="modalPokemonHeight"></div>
+                <div class="stat-label">Altura</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-value" id="modalPokemonWeight"></div>
+                <div class="stat-label">Peso</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-value" id="modalPokemonExp"></div>
+                <div class="stat-label">Exp. Base</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-value" id="modalPokemonMoves"></div>
+                <div class="stat-label">Movimientos</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="modal-footer">
+          <button class="view-details-btn" id="viewDetailsBtn">
+            Ver detalles completos
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
