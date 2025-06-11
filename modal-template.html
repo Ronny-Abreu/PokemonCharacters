@@ -1,0 +1,62 @@
+<!-- Pokemon Modal Template -->
+<div id="pokemonModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closePokemonModal()">
+      <i class="fas fa-times"></i>
+    </button>
+    
+    <div class="modal-header">
+      <img id="modalPokemonImg" src="/placeholder.svg" alt="" class="modal-pokemon-img">
+      <div class="modal-pokemon-info">
+        <h2 id="modalPokemonName"></h2>
+        <div class="pokemon-id" id="modalPokemonId"></div>
+        <div id="modalPokemonTypes"></div>
+      </div>
+    </div>
+    
+    <div class="modal-body">
+      <div class="modal-section">
+        <div class="modal-section-title">Estadísticas Base</div>
+        <div class="stat-grid" id="modalPokemonStats">
+          <!-- Las estadísticas se insertarán aquí -->
+        </div>
+      </div>
+      
+      <div class="modal-section">
+        <div class="modal-section-title">Habilidades</div>
+        <div id="modalPokemonAbilities">
+          <!-- Las habilidades se insertarán aquí -->
+        </div>
+      </div>
+      
+      <div class="modal-section">
+        <div class="modal-section-title">Información Adicional</div>
+        <div class="stat-grid">
+          <div class="stat-item">
+            <div class="stat-value" id="modalPokemonHeight"></div>
+            <div class="stat-label">Altura</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="modalPokemonWeight"></div>
+            <div class="stat-label">Peso</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="modalPokemonExp"></div>
+            <div class="stat-label">Exp. Base</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="modalPokemonMoves"></div>
+            <div class="stat-label">Movimientos</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="modal-footer">
+      <button class="view-details-btn" id="viewDetailsBtn">
+        Ver detalles completos
+        <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+</div>
