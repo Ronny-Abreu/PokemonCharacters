@@ -86,6 +86,13 @@ $(document).ready(() => {
     return "#ef4444" // red
   }
 
+  // Función para calcular el porcentaje de la estadística
+  function getStatPercentage(value) {
+
+    const maxStat = 255
+    return Math.min((value / maxStat) * 100, 100)
+  }
+
   // API functions
   const pokemonAPI = {
     cache: new Map(),
@@ -174,6 +181,7 @@ $(document).ready(() => {
       name: formatStatName(stat.stat.name),
       value: stat.base_stat,
       color: getStatColor(stat.base_stat),
+      percentage: getStatPercentage(stat.base_stat),
     }))
 
     const types = pokemon.types
@@ -268,9 +276,11 @@ $(document).ready(() => {
                   <div class="text-white/70 mb-3">${stat.name}</div>
                   <div class="stat-bar">
                     <div class="stat-fill" 
-                         data-width="${(stat.value / 255) * 100}%" 
-                         style="background-color: ${stat.color}; animation-delay: ${index * 0.3}s"></div>
+                         data-percentage="${stat.percentage}" 
+                         data-delay="${index * 200}"
+                         style="background-color: ${stat.color}"></div>
                   </div>
+                  <div class="text-xs text-white/50 mt-1">${Math.round(stat.percentage)}%</div>
                 </div>
               `,
               )
@@ -339,14 +349,24 @@ $(document).ready(() => {
     window.shinyImageUrl = shinyImageUrl
     window.isShiny = false
 
-    setTimeout(() => {
-      $(".stat-fill").each(function () {
-        const targetWidth = $(this).data("width")
-        $(this).css("width", targetWidth + "%")
-      })
-    }, 1500)
+    animateStatBars()
 
     console.log("Pokemon detail rendered successfully")
+  }
+
+  // función para animar las barras de estadísticas
+  function animateStatBars() {
+    setTimeout(() => {
+      $(".stat-fill").each(function () {
+        const $bar = $(this)
+        const percentage = $bar.data("percentage")
+        const delay = $bar.data("delay") || 0
+
+        setTimeout(() => {
+          $bar.css("width", percentage + "%")
+        }, delay)
+      })
+    }, 500)
   }
 
   function getFlavorText(flavorTextEntries) {
@@ -358,7 +378,6 @@ $(document).ready(() => {
   }
 
   function getGenus(genera) {
-
     const spanishGenus = genera.find((genus) => genus.language.name === "es")
     const englishGenus = genera.find((genus) => genus.language.name === "en")
 

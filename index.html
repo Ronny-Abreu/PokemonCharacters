@@ -53,9 +53,11 @@
             <!-- Desktop Navigation -->
             <div class="hidden md:flex items-center justify-between">
                 <div class="flex items-center">
-                    <img src="images/pokemon-logo.png" alt="Pokémon Logo" class="h-16 legendary-title">
+                    <a href="/" class="flex items-center space-x-3">
+                        <img src="images/pokemon-logo.png" alt="Pokémon Logo" class="h-16 legendary-title">
+                    </a>
                 </div>
-                
+
                 <div class="flex items-center space-x-6">
                     <a href="#home" class="text-white hover:text-robin-egg-blue transition-colors duration-300">Inicio</a>
                     <a href="#pokemon" class="text-white hover:text-robin-egg-blue transition-colors duration-300">Pokémon</a>
@@ -148,10 +150,10 @@
                                 <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/146.png" alt="Moltres" class="legendary-pokemon-img">
                                 <div class="pokemon-name">Moltres</div>
                             </div>
-                            <div class="legendary-pokemon-card" data-pokemon-id="483">
+                            <!-- <div class="legendary-pokemon-card" data-pokemon-id="483">
                                 <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/483.png" alt="Dialga" class="legendary-pokemon-img">
                                 <div class="pokemon-name">Dialga</div>
-                            </div>
+                            </div> -->
                         </div>
 
                         <!-- Central Area -->
@@ -178,6 +180,12 @@
                                 <i class="fas fa-search mr-2"></i>
                                 Explorar Todos los Pokémon
                             </button>
+
+                                <div class=" top-20 left-0 right-0 z-40 text-center py-2">
+                                    <p class="text-sm text-gray-300">
+                                        Descubre los Pokémon más poderosos del universo
+                                    </p>
+                                </div>
                         </div>
 
                         <!-- Right Column -->
@@ -198,10 +206,10 @@
                                 <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/384.png" alt="Rayquaza" class="legendary-pokemon-img">
                                 <div class="pokemon-name">Rayquaza</div>
                             </div>
-                            <div class="legendary-pokemon-card" data-pokemon-id="484">
+                            <!-- <div class="legendary-pokemon-card" data-pokemon-id="484">
                                 <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/484.png" alt="Palkia" class="legendary-pokemon-img">
                                 <div class="pokemon-name">Palkia</div>
-                            </div>
+                            </div> -->
                         </div>
                         
                     </div>
@@ -226,7 +234,15 @@
                                     <p id="selected-pokemon-type-mobile" class="selected-pokemon-type-mobile"></p>
                                 </div>
                             </div>
+                            
                         </div>
+
+                            <!-- Subtitle Section -->
+                            <div class=" top-20 left-0 right-0 z-40 text-center py-2">
+                                <p class="text-sm text-gray-300">
+                                    Descubre los Pokémon más poderosos del universo
+                                </p>
+                            </div>
 
                         <button onclick="scrollToPokemon()" class="mb-4 bg-gradient-to-r from-yellow-400 to-red-500 text-black px-4 py-2 rounded-full text-sm font-bold hover:from-yellow-300 hover:to-red-400 transform hover:scale-105 transition-all duration-300 shadow-2xl">
                             <i class="fas fa-search mr-1"></i>
