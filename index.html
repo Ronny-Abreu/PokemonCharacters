@@ -57,12 +57,15 @@
         <nav class="container mx-auto px-4 py-4">
             <!-- Desktop Navigation -->
             <div class="hidden md:flex items-center justify-between">
+
+            
+
                 <div class="flex items-center">
-                    <a href="/" class="flex items-center space-x-3">
-                        <img src="images/pokemon-logo.png" alt="Pokémon Logo" class="h-16 legendary-title">
+                    <a href="#home">
+                    <img src="images/pokemon-logo.png" alt="Pokémon Logo" class="h-16 legendary-title">
                     </a>
                 </div>
-
+                
                 <div class="flex items-center space-x-6">
                     <a href="#home" class="text-white hover:text-robin-egg-blue transition-colors duration-300" data-i18n="nav.home">Inicio</a>
                     <a href="#about" class="text-white hover:text-robin-egg-blue transition-colors duration-300" data-i18n="nav.about">Acerca</a>
@@ -120,6 +123,7 @@
                         <i class="fas fa-home mr-3"></i>
                         <span data-i18n="nav.home">Inicio</span>
                     </a>
+
                     <a href="#about" class="block text-white text-lg hover:text-robin-egg-blue transition-colors duration-300 py-3 border-b border-white/20">
                         <i class="fas fa-info-circle mr-3"></i>
                         <span data-i18n="nav.about">Acerca</span>
@@ -141,23 +145,23 @@
         </div>
     </div>
 
-    <!-- Hero Section con pokemones legendarios -->
+    <!-- Hero Section with Legendary Pokemon -->
     <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden pt-32">
-        <!-- Background animado -->
+        <!-- Animated Background -->
         <div class="absolute inset-0 bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
             <div class="absolute inset-0 bg-black opacity-40"></div>
-            <!-- Partículas animadas -->
+            <!-- Animated particles -->
             <div class="particles absolute inset-0"></div>
         </div>
         
         <!-- Main Content -->
         <div class="relative z-10 container mx-auto px-4 h-full flex flex-col justify-center">
-            <!-- Galeria de pokemones -->
+            <!-- Pokemon Gallery -->
             <div class="flex-1 flex items-center justify-center">
                 <div class="w-full max-w-6xl">
                     <!-- Desktop Layout -->
                     <div class="hidden md:grid grid-cols-3 gap-6 items-center">
-                        <!-- Columna izquierda -->
+                        <!-- Left Column -->
                         <div class="flex flex-col space-y-6">
                             <div class="legendary-pokemon-card" data-pokemon-id="150">
                                 <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/150.png" alt="Mewtwo" class="legendary-pokemon-img">
@@ -175,7 +179,6 @@
                                 <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/146.png" alt="Moltres" class="legendary-pokemon-img">
                                 <div class="pokemon-name">Moltres</div>
                             </div>
-
                             <!-- <div class="legendary-pokemon-card" data-pokemon-id="483">
                                 <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/483.png" alt="Dialga" class="legendary-pokemon-img">
                                 <div class="pokemon-name">Dialga</div>
@@ -200,21 +203,15 @@
                                     <h3 id="selected-pokemon-name" class="selected-pokemon-name"></h3>
                                     <p id="selected-pokemon-type" class="selected-pokemon-type"></p>
                                 </div>
-                            </div><br><br><br><br><br><br><br><br><br> <!-- br por el momento, ya que no he podido ajustar las card de los pokemones legendarios cuando son más de 4 por columna -->
+                            </div><br><br><br><br><br><br><br><br><br>
                             
                             <button onclick="scrollToPokemon()" class="mt-4 bg-gradient-to-r from-yellow-400 to-red-500 text-black px-6 py-3 rounded-full text-base font-bold hover:from-yellow-300 hover:to-red-400 transform hover:scale-105 transition-all duration-300 shadow-2xl">
                                 <i class="fas fa-search mr-2"></i>
                                 <span data-i18n="hero.exploreAll">Explorar Todos los Pokémon</span>
                             </button>
-
-                                <div class=" top-20 left-0 right-0 z-40 text-center py-2">
-                                    <p class="text-sm text-gray-300">
-                                        Descubre los Pokémon más poderosos del universo
-                                    </p>
-                                </div>
                         </div>
 
-                        <!-- Columna derecha -->
+                        <!-- Right Column -->
                         <div class="flex flex-col space-y-6">
                             <div class="legendary-pokemon-card" data-pokemon-id="249">
                                 <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/249.png" alt="Lugia" class="legendary-pokemon-img">
@@ -237,6 +234,7 @@
                                 <div class="pokemon-name">Palkia</div>
                             </div> -->
                         </div>
+                        
                     </div>
 
                     <!-- Mobile Layout -->
@@ -259,15 +257,7 @@
                                     <p id="selected-pokemon-type-mobile" class="selected-pokemon-type-mobile"></p>
                                 </div>
                             </div>
-                            
                         </div>
-
-                            <!-- Subtitle Section -->
-                            <div class=" top-20 left-0 right-0 z-40 text-center py-2">
-                                <p class="text-sm text-gray-300">
-                                    Descubre los Pokémon más poderosos del universo
-                                </p>
-                            </div>
 
                         <button onclick="scrollToPokemon()" class="mb-4 bg-gradient-to-r from-yellow-400 to-red-500 text-black px-4 py-2 rounded-full text-sm font-bold hover:from-yellow-300 hover:to-red-400 transform hover:scale-105 transition-all duration-300 shadow-2xl">
                             <i class="fas fa-search mr-1"></i>
@@ -403,10 +393,10 @@
 
             <!-- Pokemon Grid -->
             <div id="pokemonGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 max-w-7xl mx-auto">
-                <!-- Aquí cargarán las cards Pokémon -->
+                <!-- Pokemon cards will be inserted here -->
             </div>
 
-            <!-- Load More Botón -->
+            <!-- Load More Button -->
             <div class="text-center mt-12">
                 <button id="loadMoreBtn" class="bg-white/20 backdrop-blur-md text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white/30 transform hover:scale-105 transition-all duration-300 shadow-lg hidden border border-white/30">
                     <i class="fas fa-plus mr-2"></i>
@@ -475,6 +465,7 @@
                         <li><a href="#home" class="text-gray-300 hover:text-robin-egg-blue transition-colors" data-i18n="nav.home">Inicio</a></li>
                         <li><a href="#pokemon" class="text-gray-300 hover:text-robin-egg-blue transition-colors" data-i18n="nav.pokemon">Pokémon</a></li>
                         <li><a href="#about" class="text-gray-300 hover:text-robin-egg-blue transition-colors" data-i18n="nav.about">Acerca</a></li>
+                        <li><a href="https://pokeapi.co" target="_blank" class="text-gray-300 hover:text-robin-egg-blue transition-colors" data-i18n="nav.contact">Api</a></li>
                     </ul>
                 </div>
                 
@@ -523,14 +514,14 @@
           <div class="modal-section">
             <div class="modal-section-title" data-i18n="modal.baseStats">Estadísticas Base</div>
             <div class="stat-grid" id="modalPokemonStats">
-              <!-- Aquí cargarán los stats -->
+              <!-- Stats will be inserted here -->
             </div>
           </div>
           
           <div class="modal-section">
             <div class="modal-section-title" data-i18n="modal.abilities">Habilidades</div>
             <div id="modalPokemonAbilities">
-              <!-- Aquí cargarán las Habilidades -->
+              <!-- Abilities will be inserted here -->
             </div>
           </div>
           
@@ -566,6 +557,7 @@
       </div>
     </div>
 
+    <!-- Load i18n configuration first -->
     <script src="js/i18n.js"></script>
     <script src="js/main.js"></script>
 </body>

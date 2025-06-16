@@ -1,4 +1,5 @@
 /* Pokemon Detail Animations */
+
 .stat-container {
   position: relative;
 }
@@ -152,6 +153,7 @@
   box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
 }
 
+/* Hover effects */
 .stat-container:hover .stat-bar-fill {
   transform: scaleY(1.1);
   transition: transform 0.3s ease;

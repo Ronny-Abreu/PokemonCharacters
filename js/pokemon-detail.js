@@ -1,7 +1,8 @@
 const $ = window.$
-const i18next = window.i18next 
+const i18next = window.i18next // Declare the i18next variable
 
 $(document).ready(() => {
+  // Wait for i18next to be initialized
   const waitForI18n = () => {
     if (typeof i18next !== "undefined" && i18next.isInitialized) {
       initializePokemonDetail()
@@ -89,13 +90,6 @@ const initializePokemonDetail = () => {
     if (value >= 80) return "#facc15" // yellow
     if (value >= 60) return "#fb923c" // orange
     return "#ef4444" // red
-  }
-
-  // Función para calcular el porcentaje de la estadística
-  function getStatPercentage(value) {
-
-    const maxStat = 255
-    return Math.min((value / maxStat) * 100, 100)
   }
 
   // API functions
@@ -186,7 +180,6 @@ const initializePokemonDetail = () => {
       name: formatStatName(stat.stat.name),
       value: stat.base_stat,
       color: getStatColor(stat.base_stat),
-      percentage: getStatPercentage(stat.base_stat),
     }))
 
     const types = pokemon.types
@@ -281,8 +274,7 @@ const initializePokemonDetail = () => {
                 <div class="text-center stat-container" data-stat-value="${stat.value}">
                   <div class="text-2xl font-bold text-white mb-2 stat-number" data-target="${stat.value}">0</div>
                   <div class="text-white/70 mb-3">${stat.name}</div>
-
-<div class="stat-bar-container">
+                  <div class="stat-bar-container">
                     <div class="stat-bar-background">
                       <div class="stat-bar-fill" 
                            data-width="${(stat.value / 255) * 100}%" 
@@ -292,13 +284,7 @@ const initializePokemonDetail = () => {
                       </div>
                     </div>
                     <div class="stat-percentage" data-percentage="${Math.round((stat.value / 255) * 100)}">0%</div>
-                  <div class="stat-bar">
-                    <div class="stat-fill" 
-                         data-percentage="${stat.percentage}" 
-                         data-delay="${index * 200}"
-                         style="background-color: ${stat.color}"></div>
                   </div>
-                  <div class="text-xs text-white/50 mt-1">${Math.round(stat.percentage)}%</div>
                 </div>
               `,
               )
@@ -367,32 +353,18 @@ const initializePokemonDetail = () => {
     window.shinyImageUrl = shinyImageUrl
     window.isShiny = false
 
-    animateStatBars()
-
-    console.log("Pokemon detail rendered successfully")
-  }
-
-  // función para animar las barras de estadísticas
-  function animateStatBars() {
     setTimeout(() => {
       animateStatsBars()
     }, 500)
-      $(".stat-fill").each(function () {
-        const $bar = $(this)
-        const percentage = $bar.data("percentage")
-        const delay = $bar.data("delay") || 0
 
-        setTimeout(() => {
-          $bar.css("width", percentage + "%")
-        }, delay)
-      })
-    }, 500)
+    console.log("Pokemon detail rendered successfully")
   }
 
   function getFlavorText(flavorTextEntries) {
     const currentLang = i18next.language
     let targetText = null
 
+    // Try to find text in current language
     if (currentLang === "es") {
       targetText = flavorTextEntries.find((entry) => entry.language.name === "es")
     } else if (currentLang === "en") {
@@ -401,10 +373,12 @@ const initializePokemonDetail = () => {
       targetText = flavorTextEntries.find((entry) => entry.language.name === "fr")
     }
 
+    // Fallback to English if current language not found
     if (!targetText) {
       targetText = flavorTextEntries.find((entry) => entry.language.name === "en")
     }
 
+    // Final fallback to first available
     if (!targetText && flavorTextEntries.length > 0) {
       targetText = flavorTextEntries[0]
     }
@@ -429,8 +403,6 @@ const initializePokemonDetail = () => {
     if (!targetGenus) {
       targetGenus = genera.find((genus) => genus.language.name === "en")
     }
-    const spanishGenus = genera.find((genus) => genus.language.name === "es")
-    const englishGenus = genera.find((genus) => genus.language.name === "en")
 
     // Final fallback to first available
     if (!targetGenus && genera.length > 0) {
@@ -469,14 +441,17 @@ const initializePokemonDetail = () => {
 
       // Animate with delay for each stat
       setTimeout(() => {
+        // Animate the number
         animateNumber(statNumber, 0, targetValue, 1500)
 
         // Animate the percentage
         animateNumber(statPercentage, 0, targetPercentage, 1500, "%")
 
+        // Animate the bar width
         statBar.style.transition = "width 1.5s cubic-bezier(0.4, 0, 0.2, 1)"
         statBar.style.width = targetWidth + "%"
 
+        // Add pulse effect when animation completes
         setTimeout(() => {
           statBar.classList.add("stat-complete")
         }, 1500)
