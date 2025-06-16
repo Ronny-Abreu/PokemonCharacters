@@ -35,10 +35,10 @@ let initI18n = () => {
 
       window.$("html").attr("lang", window.i18next.language)
 
-      console.log("i18next initialized with language:", window.i18next.language)
+      console.log("Analizando mensaje:", window.i18next.language)
     })
     .catch((error) => {
-      console.error("Error initializing i18next:", error)
+      console.error("Error al inicializar i18next:", error)
     })
 }
 
