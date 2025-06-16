@@ -1,9 +1,9 @@
 {
   "page": {
-    "title": "PokéDex - Explore the Pokémon World"
+    "title": "PokeAll - Explore the Pokémon World"
   },
   "pokemonDetail": {
-    "title": "Pokémon Details - PokéDex"
+    "title": "Pokémon Details - PokeAll"
   },
   "nav": {
     "home": "Home",
@@ -40,8 +40,8 @@
     "tryAgain": "Try again"
   },
   "about": {
-    "title": "About PokéDex",
-    "description": "This interactive PokéDex allows you to explore the fascinating world of Pokémon. Discover their types, abilities, stats and much more using the official Pokémon API.",
+    "title": "About PokeAll",
+    "description": "This interactive PokeAll allows you to explore the fascinating world of Pokémon. Discover their types, abilities, stats and much more using the official Pokémon API.",
     "features": {
       "search": {
         "title": "Advanced Search",
@@ -61,7 +61,7 @@
     "description": "Your complete guide to explore the Pokémon world. Updated data from the official API.",
     "quickLinks": "Quick Links",
     "developer": "Developer",
-    "copyright": "© 2025 PokéDex. Developed by Ronny-Abreu. Data provided by"
+    "copyright": "© 2025 PokeAll. Developed by Ronny-Abreu. Data provided by"
   },
   "modal": {
     "baseStats": "Base Stats",
