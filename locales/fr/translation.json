@@ -1,0 +1,118 @@
+{
+  "page": {
+    "title": "PokéDex - Explorez le Monde Pokémon"
+  },
+  "pokemonDetail": {
+    "title": "Détails du Pokémon - PokéDex"
+  },
+  "nav": {
+    "home": "Accueil",
+    "pokemon": "Pokémon",
+    "about": "À propos",
+    "language": "Langue",
+    "selectLanguage": "Sélectionner la langue"
+  },
+  "hero": {
+    "exploreAll": "Explorer Tous les Pokémon",
+    "exploreAllMobile": "Explorer Tous"
+  },
+  "search": {
+    "title": "Trouvez Votre Pokémon Préféré",
+    "placeholder": "Rechercher un Pokémon par nom..."
+  },
+  "filters": {
+    "allTypes": "Tous les types",
+    "sortById": "Trier par ID",
+    "sortByName": "Trier par Nom",
+    "sortByHeight": "Trier par Taille",
+    "sortByWeight": "Trier par Poids",
+    "maxHeight": "Filtrer par taille maximale",
+    "maxWeight": "Filtrer par poids maximal"
+  },
+  "loading": {
+    "pokemon": "Chargement des Pokémon...",
+    "pokemonDetails": "Chargement des détails du Pokémon..."
+  },
+  "buttons": {
+    "loadMore": "Charger Plus de Pokémon",
+    "viewDetails": "Voir les détails complets",
+    "back": "Retour",
+    "tryAgain": "Réessayer"
+  },
+  "about": {
+    "title": "À Propos de PokéDex",
+    "description": "Ce PokéDex interactif vous permet d'explorer le monde fascinant des Pokémon. Découvrez leurs types, capacités, statistiques et bien plus encore en utilisant l'API officielle Pokémon.",
+    "features": {
+      "search": {
+        "title": "Recherche Avancée",
+        "description": "Trouvez n'importe quel Pokémon par nom, type ou caractéristiques spécifiques."
+      },
+      "filters": {
+        "title": "Filtres Intelligents",
+        "description": "Organisez et filtrez les Pokémon par type, taille, poids et plus de critères."
+      },
+      "details": {
+        "title": "Informations Détaillées",
+        "description": "Accédez aux statistiques complètes, capacités et données de chaque Pokémon."
+      }
+    }
+  },
+  "footer": {
+    "description": "Votre guide complet pour explorer le monde Pokémon. Données mises à jour depuis l'API officielle.",
+    "quickLinks": "Liens Rapides",
+    "developer": "Développeur",
+    "copyright": "© 2025 PokéDex. Développé par Ronny-Abreu. Données fournies par"
+  },
+  "modal": {
+    "baseStats": "Statistiques de Base",
+    "abilities": "Capacités",
+    "additionalInfo": "Informations Supplémentaires"
+  },
+  "pokemon": {
+    "height": "Taille",
+    "weight": "Poids",
+    "baseExp": "Exp. de Base",
+    "moves": "Attaques",
+    "captureRate": "Taux de Capture",
+    "baseHappiness": "Bonheur de Base",
+    "hatchCounter": "Cycles d'Éclosion"
+  },
+  "stats": {
+    "hp": "PV",
+    "attack": "Attaque",
+    "defense": "Défense",
+    "special-attack": "Att. Spé.",
+    "special-defense": "Déf. Spé.",
+    "speed": "Vitesse",
+    "total": "Total"
+  },
+  "errors": {
+    "loadingError": "Erreur lors du chargement des Pokémon. Veuillez réessayer.",
+    "searchError": "Erreur lors de la recherche de Pokémon.",
+    "detailsError": "Erreur lors du chargement des détails du Pokémon",
+    "invalidId": "ID de Pokémon invalide",
+    "noResults": "Aucun résultat trouvé",
+    "tryDifferentTerm": "Essayez de rechercher avec un autre terme",
+    "somethingWrong": "Oups ! Quelque chose s'est mal passé"
+  },
+  "pokemonTypes": {
+    "normal": "Normal",
+    "fire": "Feu",
+    "water": "Eau",
+    "electric": "Électrik",
+    "grass": "Plante",
+    "ice": "Glace",
+    "fighting": "Combat",
+    "poison": "Poison",
+    "ground": "Sol",
+    "flying": "Vol",
+    "psychic": "Psy",
+    "bug": "Insecte",
+    "rock": "Roche",
+    "ghost": "Spectre",
+    "dragon": "Dragon",
+    "dark": "Ténèbres",
+    "steel": "Acier",
+    "fairy": "Fée"
+  }
+}
