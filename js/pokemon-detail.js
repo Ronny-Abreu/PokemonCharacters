@@ -1,6 +1,19 @@
 const $ = window.$
+const i18next = window.i18next 
 
 $(document).ready(() => {
+  const waitForI18n = () => {
+    if (typeof i18next !== "undefined" && i18next.isInitialized) {
+      initializePokemonDetail()
+    } else {
+      setTimeout(waitForI18n, 100)
+    }
+  }
+
+  waitForI18n()
+})
+
+const initializePokemonDetail = () => {
   function capitalizeFirst(str) {
     return str.charAt(0).toUpperCase() + str.slice(1)
   }
@@ -50,11 +63,11 @@ $(document).ready(() => {
           <div class="text-red-500 text-6xl mb-4">
             <i class="fas fa-exclamation-triangle"></i>
           </div>
-          <h3 class="text-2xl font-bold text-white mb-2">¡Oops! Algo salió mal</h3>
+          <h3 class="text-2xl font-bold text-white mb-2">${i18next.t("errors.somethingWrong")}</h3>
           <p class="text-white mb-4">${message}</p>
           <button onclick="location.reload()" class="bg-white/20 text-white px-6 py-3 rounded-full hover:bg-white/30 transition-colors border border-white/30">
             <i class="fas fa-refresh mr-2"></i>
-            Intentar de nuevo
+            ${i18next.t("buttons.tryAgain")}
           </button>
         </div>
       `)
@@ -68,15 +81,7 @@ $(document).ready(() => {
   }
 
   function formatStatName(statName) {
-    const statNames = {
-      hp: "HP",
-      attack: "Ataque",
-      defense: "Defensa",
-      "special-attack": "At. Especial",
-      "special-defense": "Def. Especial",
-      speed: "Velocidad",
-    }
-    return statNames[statName] || capitalizeFirst(statName)
+    return i18next.t(`stats.${statName}`, { defaultValue: capitalizeFirst(statName) })
   }
 
   function getStatColor(value) {
@@ -138,7 +143,7 @@ $(document).ready(() => {
   const pokemonId = getUrlParameter("id")
 
   if (!pokemonId) {
-    showError("ID de Pokémon no válido")
+    showError(i18next.t("errors.invalidId"))
     return
   }
 
@@ -158,7 +163,7 @@ $(document).ready(() => {
       renderPokemonDetail(pokemon, species)
     } catch (error) {
       console.error("Error loading Pokemon detail:", error)
-      showError("Error al cargar los detalles del Pokémon")
+      showError(i18next.t("errors.detailsError"))
     } finally {
       hideLoading("loadingSpinner")
     }
@@ -177,10 +182,12 @@ $(document).ready(() => {
     }))
 
     const types = pokemon.types
-      .map(
-        (type) =>
-          `<span class="type-badge ${getTypeColorClass(type.type.name)}">${capitalizeFirst(type.type.name)}</span>`,
-      )
+      .map((type) => {
+        const translatedType = i18next.t(`pokemonTypes.${type.type.name}`, {
+          defaultValue: capitalizeFirst(type.type.name),
+        })
+        return `<span class="type-badge ${getTypeColorClass(type.type.name)}">${translatedType}</span>`
+      })
       .join("")
 
     const abilities = pokemon.abilities
@@ -229,11 +236,11 @@ $(document).ready(() => {
               <div class="grid grid-cols-2 gap-4">
                 <div class="text-center p-4 bg-white/10 backdrop-blur-md rounded-lg border border-white/20">
                   <div class="text-3xl font-bold text-white">${formatHeight(pokemon.height)}</div>
-                  <div class="text-white/70">Altura</div>
+                  <div class="text-white/70">${i18next.t("pokemon.height")}</div>
                 </div>
                 <div class="text-center p-4 bg-white/10 backdrop-blur-md rounded-lg border border-white/20">
                   <div class="text-3xl font-bold text-white">${formatWeight(pokemon.weight)}</div>
-                  <div class="text-white/70">Peso</div>
+                  <div class="text-white/70">${i18next.t("pokemon.weight")}</div>
                 </div>
               </div>
             </div>
@@ -257,19 +264,25 @@ $(document).ready(() => {
 
         <!-- Stats -->
         <div class="bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl p-8 mb-8 border border-white/20" data-aos="fade-up" data-aos-delay="100">
-          <h2 class="text-3xl font-bold text-white mb-6 text-center">Estadísticas Base</h2>
+          <h2 class="text-3xl font-bold text-white mb-6 text-center">${i18next.t("modal.baseStats")}</h2>
           
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             ${stats
               .map(
                 (stat, index) => `
-                <div class="text-center">
-                  <div class="text-2xl font-bold text-white mb-2">${stat.value}</div>
+                <div class="text-center stat-container" data-stat-value="${stat.value}">
+                  <div class="text-2xl font-bold text-white mb-2 stat-number" data-target="${stat.value}">0</div>
                   <div class="text-white/70 mb-3">${stat.name}</div>
-                  <div class="stat-bar">
-                    <div class="stat-fill" 
-                         data-width="${(stat.value / 255) * 100}%" 
-                         style="background-color: ${stat.color}; animation-delay: ${index * 0.3}s"></div>
+                  <div class="stat-bar-container">
+                    <div class="stat-bar-background">
+                      <div class="stat-bar-fill" 
+                           data-width="${(stat.value / 255) * 100}%" 
+                           data-color="${stat.color}"
+                           style="background-color: ${stat.color}; animation-delay: ${index * 0.2}s">
+                        <div class="stat-bar-glow"></div>
+                      </div>
+                    </div>
+                    <div class="stat-percentage" data-percentage="${Math.round((stat.value / 255) * 100)}">0%</div>
                   </div>
                 </div>
               `,
@@ -279,7 +292,7 @@ $(document).ready(() => {
           
           <div class="mt-8 text-center">
             <div class="text-lg text-white/70">
-              Total: <span class="font-bold text-white">${stats.reduce((sum, stat) => sum + stat.value, 0)}</span>
+              ${i18next.t("stats.total")}: <span class="font-bold text-white total-stats" data-total="${stats.reduce((sum, stat) => sum + stat.value, 0)}">0</span>
             </div>
           </div>
         </div>
@@ -288,7 +301,7 @@ $(document).ready(() => {
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
           <!-- Abilities -->
           <div class="bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl p-8 border border-white/20" data-aos="fade-up" data-aos-delay="200">
-            <h3 class="text-2xl font-bold text-white mb-4">Habilidades</h3>
+            <h3 class="text-2xl font-bold text-white mb-4">${i18next.t("modal.abilities")}</h3>
             <div class="flex flex-wrap gap-2">
               ${abilities}
             </div>
@@ -296,7 +309,7 @@ $(document).ready(() => {
           
           <!-- Moves -->
           <div class="bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl p-8 border border-white/20" data-aos="fade-up" data-aos-delay="300">
-            <h3 class="text-2xl font-bold text-white mb-4">Movimientos</h3>
+            <h3 class="text-2xl font-bold text-white mb-4">${i18next.t("pokemon.moves")}</h3>
             <div class="flex flex-wrap gap-2">
               ${moves}
             </div>
@@ -306,27 +319,27 @@ $(document).ready(() => {
 
         <!-- Additional Info -->
         <div class="bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl p-8 border border-white/20" data-aos="fade-up" data-aos-delay="400">
-          <h2 class="text-3xl font-bold text-white mb-6 text-center">Información Adicional</h2>
+          <h2 class="text-3xl font-bold text-white mb-6 text-center">${i18next.t("modal.additionalInfo")}</h2>
           
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div class="text-center p-4 bg-white/10 backdrop-blur-md rounded-lg border border-white/20">
               <div class="text-2xl font-bold text-white">${pokemon.base_experience || "N/A"}</div>
-              <div class="text-white/70">Experiencia Base</div>
+              <div class="text-white/70">${i18next.t("pokemon.baseExp")}</div>
             </div>
             
             <div class="text-center p-4 bg-white/10 backdrop-blur-md rounded-lg border border-white/20">
               <div class="text-2xl font-bold text-white">${species.capture_rate}</div>
-              <div class="text-white/70">Tasa de Captura</div>
+              <div class="text-white/70">${i18next.t("pokemon.captureRate")}</div>
             </div>
             
             <div class="text-center p-4 bg-white/10 backdrop-blur-md rounded-lg border border-white/20">
               <div class="text-2xl font-bold text-white">${species.base_happiness}</div>
-              <div class="text-white/70">Felicidad Base</div>
+              <div class="text-white/70">${i18next.t("pokemon.baseHappiness")}</div>
             </div>
             
             <div class="text-center p-4 bg-white/10 backdrop-blur-md rounded-lg border border-white/20">
               <div class="text-2xl font-bold text-white">${species.hatch_counter}</div>
-              <div class="text-white/70">Ciclos de Huevo</div>
+              <div class="text-white/70">${i18next.t("pokemon.hatchCounter")}</div>
             </div>
           </div>
         </div>
@@ -340,30 +353,59 @@ $(document).ready(() => {
     window.isShiny = false
 
     setTimeout(() => {
-      $(".stat-fill").each(function () {
-        const targetWidth = $(this).data("width")
-        $(this).css("width", targetWidth + "%")
-      })
-    }, 1500)
+      animateStatsBars()
+    }, 500)
 
     console.log("Pokemon detail rendered successfully")
   }
 
   function getFlavorText(flavorTextEntries) {
-    const spanishText = flavorTextEntries.find((entry) => entry.language.name === "es")
-    const englishText = flavorTextEntries.find((entry) => entry.language.name === "en")
+    const currentLang = i18next.language
+    let targetText = null
 
-    const text = spanishText || englishText || flavorTextEntries[0]
-    return text ? text.flavor_text.replace(/\f/g, " ").replace(/\n/g, " ") : "Descripción no disponible"
+    if (currentLang === "es") {
+      targetText = flavorTextEntries.find((entry) => entry.language.name === "es")
+    } else if (currentLang === "en") {
+      targetText = flavorTextEntries.find((entry) => entry.language.name === "en")
+    } else if (currentLang === "fr") {
+      targetText = flavorTextEntries.find((entry) => entry.language.name === "fr")
+    }
+
+    if (!targetText) {
+      targetText = flavorTextEntries.find((entry) => entry.language.name === "en")
+    }
+
+    if (!targetText && flavorTextEntries.length > 0) {
+      targetText = flavorTextEntries[0]
+    }
+
+    return targetText ? targetText.flavor_text.replace(/\f/g, " ").replace(/\n/g, " ") : "Descripción no disponible"
   }
 
   function getGenus(genera) {
+    const currentLang = i18next.language
+    let targetGenus = null
 
-    const spanishGenus = genera.find((genus) => genus.language.name === "es")
-    const englishGenus = genera.find((genus) => genus.language.name === "en")
+    // Try to find genus in current language
+    if (currentLang === "es") {
+      targetGenus = genera.find((genus) => genus.language.name === "es")
+    } else if (currentLang === "en") {
+      targetGenus = genera.find((genus) => genus.language.name === "en")
+    } else if (currentLang === "fr") {
+      targetGenus = genera.find((genus) => genus.language.name === "fr")
+    }
 
-    const genus = spanishGenus || englishGenus || genera[0]
-    return genus ? genus.genus : "Pokémon"
+    // Fallback to English if current language not found
+    if (!targetGenus) {
+      targetGenus = genera.find((genus) => genus.language.name === "en")
+    }
+
+    // Final fallback to first available
+    if (!targetGenus && genera.length > 0) {
+      targetGenus = genera[0]
+    }
+
+    return targetGenus ? targetGenus.genus : "Pokémon"
   }
 
   window.toggleShiny = () => {
@@ -378,4 +420,60 @@ $(document).ready(() => {
       ? "drop-shadow(0 0 20px gold)"
       : "drop-shadow(0 0 20px rgba(255, 255, 255, 0.3))"
   }
-})
+
+  function animateStatsBars() {
+    const statContainers = document.querySelectorAll(".stat-container")
+    let totalSum = 0
+
+    statContainers.forEach((container, index) => {
+      const statNumber = container.querySelector(".stat-number")
+      const statBar = container.querySelector(".stat-bar-fill")
+      const statPercentage = container.querySelector(".stat-percentage")
+      const targetValue = Number.parseInt(statNumber.dataset.target)
+      const targetWidth = Number.parseFloat(statBar.dataset.width)
+      const targetPercentage = Number.parseInt(statPercentage.dataset.percentage)
+
+      totalSum += targetValue
+
+      // Animate with delay for each stat
+      setTimeout(() => {
+        animateNumber(statNumber, 0, targetValue, 1500)
+
+        // Animate the percentage
+        animateNumber(statPercentage, 0, targetPercentage, 1500, "%")
+
+        statBar.style.transition = "width 1.5s cubic-bezier(0.4, 0, 0.2, 1)"
+        statBar.style.width = targetWidth + "%"
+
+        setTimeout(() => {
+          statBar.classList.add("stat-complete")
+        }, 1500)
+      }, index * 200)
+    })
+
+    // Animate total stats number
+    setTimeout(
+      () => {
+        const totalElement = document.querySelector(".total-stats")
+        const targetTotal = Number.parseInt(totalElement.dataset.total)
+        animateNumber(totalElement, 0, targetTotal, 2000)
+      },
+      statContainers.length * 200 + 500,
+    )
+  }
+
+  function animateNumber(element, start, end, duration, suffix = "") {
+    const range = end - start
+    const increment = range / (duration / 16)
+    let current = start
+
+    const timer = setInterval(() => {
+      current += increment
+      if (current >= end) {
+        current = end
+        clearInterval(timer)
+      }
+      element.textContent = Math.floor(current) + suffix
+    }, 16)
+  }
+}

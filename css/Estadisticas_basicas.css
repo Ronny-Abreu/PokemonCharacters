@@ -1,0 +1,163 @@
+/* Pokemon Detail Animations */
+.stat-container {
+  position: relative;
+}
+
+.stat-bar-container {
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.stat-bar-background {
+  width: 100%;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stat-bar-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 6px;
+  position: relative;
+  background: linear-gradient(90deg, var(--stat-color), var(--stat-color-light));
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  transition: width 0s;
+}
+
+.stat-bar-fill::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shimmer 2s infinite;
+  border-radius: 6px;
+}
+
+.stat-bar-glow {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: inherit;
+  border-radius: 8px;
+  filter: blur(4px);
+  opacity: 0.6;
+  z-index: -1;
+}
+
+.stat-complete {
+  animation: statPulse 0.6s ease-out;
+}
+
+.stat-percentage {
+  position: absolute;
+  right: 8px;
+  top: -24px;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(0, 0, 0, 0.5);
+  padding: 2px 6px;
+  border-radius: 4px;
+  backdrop-filter: blur(4px);
+}
+
+.stat-number {
+  font-family: "Courier New", monospace;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.total-stats {
+  font-family: "Courier New", monospace;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  color: #fbbf24 !important;
+}
+
+/* Animations */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes statPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .stat-bar-background {
+    height: 10px;
+  }
+
+  .stat-percentage {
+    font-size: 10px;
+    top: -22px;
+    right: 4px;
+  }
+}
+
+/* Color variations for different stat ranges */
+.stat-bar-fill[data-color="#4ade80"] {
+  background: linear-gradient(90deg, #4ade80, #86efac);
+  box-shadow: 0 0 15px rgba(74, 222, 128, 0.4);
+}
+
+.stat-bar-fill[data-color="#facc15"] {
+  background: linear-gradient(90deg, #facc15, #fde047);
+  box-shadow: 0 0 15px rgba(250, 204, 21, 0.4);
+}
+
+.stat-bar-fill[data-color="#fb923c"] {
+  background: linear-gradient(90deg, #fb923c, #fdba74);
+  box-shadow: 0 0 15px rgba(251, 146, 60, 0.4);
+}
+
+.stat-bar-fill[data-color="#ef4444"] {
+  background: linear-gradient(90deg, #ef4444, #f87171);
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+}
+
+.stat-container:hover .stat-bar-fill {
+  transform: scaleY(1.1);
+  transition: transform 0.3s ease;
+}
+
+.stat-container:hover .stat-number {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
