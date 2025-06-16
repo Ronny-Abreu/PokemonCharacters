@@ -1,0 +1,118 @@
+{
+  "page": {
+    "title": "PokéDex - Explore the Pokémon World"
+  },
+  "pokemonDetail": {
+    "title": "Pokémon Details - PokéDex"
+  },
+  "nav": {
+    "home": "Home",
+    "pokemon": "Pokémon",
+    "about": "About",
+    "language": "Language",
+    "selectLanguage": "Select language"
+  },
+  "hero": {
+    "exploreAll": "Explore All Pokémon",
+    "exploreAllMobile": "Explore All"
+  },
+  "search": {
+    "title": "Find Your Favorite Pokémon",
+    "placeholder": "Search Pokémon by name..."
+  },
+  "filters": {
+    "allTypes": "All types",
+    "sortById": "Sort by ID",
+    "sortByName": "Sort by Name",
+    "sortByHeight": "Sort by Height",
+    "sortByWeight": "Sort by Weight",
+    "maxHeight": "Filter by maximum height",
+    "maxWeight": "Filter by maximum weight"
+  },
+  "loading": {
+    "pokemon": "Loading Pokémon...",
+    "pokemonDetails": "Loading Pokémon details..."
+  },
+  "buttons": {
+    "loadMore": "Load More Pokémon",
+    "viewDetails": "View full details",
+    "back": "Back",
+    "tryAgain": "Try again"
+  },
+  "about": {
+    "title": "About PokéDex",
+    "description": "This interactive PokéDex allows you to explore the fascinating world of Pokémon. Discover their types, abilities, stats and much more using the official Pokémon API.",
+    "features": {
+      "search": {
+        "title": "Advanced Search",
+        "description": "Find any Pokémon by name, type or specific characteristics."
+      },
+      "filters": {
+        "title": "Smart Filters",
+        "description": "Organize and filter Pokémon by type, height, weight and more criteria."
+      },
+      "details": {
+        "title": "Detailed Information",
+        "description": "Access complete stats, abilities and data for each Pokémon."
+      }
+    }
+  },
+  "footer": {
+    "description": "Your complete guide to explore the Pokémon world. Updated data from the official API.",
+    "quickLinks": "Quick Links",
+    "developer": "Developer",
+    "copyright": "© 2025 PokéDex. Developed by Ronny-Abreu. Data provided by"
+  },
+  "modal": {
+    "baseStats": "Base Stats",
+    "abilities": "Abilities",
+    "additionalInfo": "Additional Information"
+  },
+  "pokemon": {
+    "height": "Height",
+    "weight": "Weight",
+    "baseExp": "Base Exp",
+    "moves": "Moves",
+    "captureRate": "Capture Rate",
+    "baseHappiness": "Base Happiness",
+    "hatchCounter": "Hatch Counter"
+  },
+  "stats": {
+    "hp": "HP",
+    "attack": "Attack",
+    "defense": "Defense",
+    "special-attack": "Sp. Attack",
+    "special-defense": "Sp. Defense",
+    "speed": "Speed",
+    "total": "Total"
+  },
+  "errors": {
+    "loadingError": "Error loading Pokémon. Please try again.",
+    "searchError": "Error searching Pokémon.",
+    "detailsError": "Error loading Pokémon details",
+    "invalidId": "Invalid Pokémon ID",
+    "noResults": "No results found",
+    "tryDifferentTerm": "Try searching with a different term",
+    "somethingWrong": "Oops! Something went wrong"
+  },
+  "pokemonTypes": {
+    "normal": "Normal",
+    "fire": "Fire",
+    "water": "Water",
+    "electric": "Electric",
+    "grass": "Grass",
+    "ice": "Ice",
+    "fighting": "Fighting",
+    "poison": "Poison",
+    "ground": "Ground",
+    "flying": "Flying",
+    "psychic": "Psychic",
+    "bug": "Bug",
+    "rock": "Rock",
+    "ghost": "Ghost",
+    "dragon": "Dragon",
+    "dark": "Dark",
+    "steel": "Steel",
+    "fairy": "Fairy"
+  }
+}

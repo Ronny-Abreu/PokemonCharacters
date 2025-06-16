@@ -1,0 +1,118 @@
+{
+  "page": {
+    "title": "PokéDex - Explora el Mundo Pokémon"
+  },
+  "pokemonDetail": {
+    "title": "Detalles del Pokémon - PokéDex"
+  },
+  "nav": {
+    "home": "Inicio",
+    "pokemon": "Pokémon",
+    "about": "Acerca",
+    "language": "Idioma",
+    "selectLanguage": "Seleccionar idioma"
+  },
+  "hero": {
+    "exploreAll": "Explorar Todos los Pokémon",
+    "exploreAllMobile": "Explorar Todos"
+  },
+  "search": {
+    "title": "Busca tu Pokémon Favorito",
+    "placeholder": "Buscar Pokémon por nombre..."
+  },
+  "filters": {
+    "allTypes": "Todos los tipos",
+    "sortById": "Ordenar por ID",
+    "sortByName": "Ordenar por Nombre",
+    "sortByHeight": "Ordenar por Altura",
+    "sortByWeight": "Ordenar por Peso",
+    "maxHeight": "Filtrar por altura máxima",
+    "maxWeight": "Filtrar por peso máximo"
+  },
+  "loading": {
+    "pokemon": "Cargando Pokémon...",
+    "pokemonDetails": "Cargando detalles del Pokémon..."
+  },
+  "buttons": {
+    "loadMore": "Cargar Más Pokémon",
+    "viewDetails": "Ver detalles completos",
+    "back": "Volver",
+    "tryAgain": "Intentar de nuevo"
+  },
+  "about": {
+    "title": "Acerca de PokéDex",
+    "description": "Esta PokéDex interactiva te permite explorar el fascinante mundo de los Pokémon. Descubre sus tipos, habilidades, estadísticas y mucho más utilizando la API oficial de Pokémon.",
+    "features": {
+      "search": {
+        "title": "Búsqueda Avanzada",
+        "description": "Encuentra cualquier Pokémon por nombre, tipo o características específicas."
+      },
+      "filters": {
+        "title": "Filtros Inteligentes",
+        "description": "Organiza y filtra Pokémon por tipo, altura, peso y más criterios."
+      },
+      "details": {
+        "title": "Información Detallada",
+        "description": "Accede a estadísticas completas, habilidades y datos de cada Pokémon."
+      }
+    }
+  },
+  "footer": {
+    "description": "Tu guía completa para explorar el mundo Pokémon. Datos actualizados desde la API oficial.",
+    "quickLinks": "Enlaces Rápidos",
+    "developer": "Desarrollador",
+    "copyright": "© 2025 PokéDex. Desarrollado por Ronny-Abreu. Datos proporcionados por"
+  },
+  "modal": {
+    "baseStats": "Estadísticas Base",
+    "abilities": "Habilidades",
+    "additionalInfo": "Información Adicional"
+  },
+  "pokemon": {
+    "height": "Altura",
+    "weight": "Peso",
+    "baseExp": "Exp. Base",
+    "moves": "Movimientos",
+    "captureRate": "Tasa de Captura",
+    "baseHappiness": "Felicidad Base",
+    "hatchCounter": "Ciclos de Huevo"
+  },
+  "stats": {
+    "hp": "HP",
+    "attack": "Ataque",
+    "defense": "Defensa",
+    "special-attack": "At. Especial",
+    "special-defense": "Def. Especial",
+    "speed": "Velocidad",
+    "total": "Total"
+  },
+  "errors": {
+    "loadingError": "Error al cargar los Pokémon. Por favor, intenta de nuevo.",
+    "searchError": "Error al buscar Pokémon.",
+    "detailsError": "Error al cargar los detalles del Pokémon",
+    "invalidId": "ID de Pokémon no válido",
+    "noResults": "No se encontraron resultados",
+    "tryDifferentTerm": "Intenta buscar con otro término",
+    "somethingWrong": "¡Oops! Algo salió mal"
+  },
+  "pokemonTypes": {
+    "normal": "Normal",
+    "fire": "Fuego",
+    "water": "Agua",
+    "electric": "Eléctrico",
+    "grass": "Planta",
+    "ice": "Hielo",
+    "fighting": "Lucha",
+    "poison": "Veneno",
+    "ground": "Tierra",
+    "flying": "Volador",
+    "psychic": "Psíquico",
+    "bug": "Bicho",
+    "rock": "Roca",
+    "ghost": "Fantasma",
+    "dragon": "Dragón",
+    "dark": "Siniestro",
+    "steel": "Acero",
+    "fairy": "Hada"
+  }
+}

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalles del Pokémon - PokéDex</title>
+    <title data-i18n="pokemonDetail.title">Detalles del Pokémon - PokéDex</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -11,7 +11,13 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- i18next Libraries -->
+    <script src="https://unpkg.com/i18next@23.7.16/dist/umd/i18next.min.js"></script>
+    <script src="https://unpkg.com/jquery-i18next@1.2.1/jquery-i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-http-backend@2.4.2/i18nextHttpBackend.min.js"></script>
+    
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/Estadisticas_basicas.css">
     
     <!-- TailwindCSS Custom Config -->
     <script>
@@ -64,16 +70,18 @@
             <!-- Loading Spinner -->
             <div id="loadingSpinner" class="text-center py-20">
                 <div class="inline-block animate-spin rounded-full h-16 w-16 border-b-4 border-white"></div>
-                <p class="mt-4 text-white text-lg">Cargando detalles del Pokémon...</p>
+                <p class="mt-4 text-white text-lg" data-i18n="loading.pokemonDetails">Cargando detalles del Pokémon...</p>
             </div>
 
             <!-- Pokemon Detail Content -->
             <div id="pokemonDetail" class="hidden">
+                 <!-- Los porcentajes se miden por 255 que son lo maximo en pokemon -->
             </div>
         </div>
     </section>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/i18n.js"></script>
     <script src="js/pokemon-detail.js"></script>
 </body>
 </html>

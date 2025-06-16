@@ -1,9 +1,21 @@
-// Main Application Logic
 const $ = window.$
 const AOS = window.AOS
 const gsap = window.gsap
+const i18next = window.i18next
 
 $(document).ready(() => {
+  const waitForI18n = () => {
+    if (typeof i18next !== "undefined" && i18next.isInitialized) {
+      initializeApp()
+    } else {
+      setTimeout(waitForI18n, 100)
+    }
+  }
+
+  waitForI18n()
+})
+
+const initializeApp = () => {
   if (typeof AOS !== "undefined") {
     AOS.init({
       duration: 800,
@@ -84,11 +96,11 @@ $(document).ready(() => {
           <div class="text-red-500 text-6xl mb-4">
             <i class="fas fa-exclamation-triangle"></i>
           </div>
-          <h3 class="text-2xl font-bold text-white mb-2">¡Oops! Algo salió mal</h3>
+          <h3 class="text-2xl font-bold text-white mb-2">${i18next.t("errors.somethingWrong")}</h3>
           <p class="text-white mb-4">${message}</p>
           <button onclick="location.reload()" class="bg-white/20 text-white px-6 py-3 rounded-full hover:bg-white/30 transition-colors border border-white/30">
             <i class="fas fa-refresh mr-2"></i>
-            Intentar de nuevo
+            ${i18next.t("buttons.tryAgain")}
           </button>
         </div>
       `)
@@ -225,7 +237,7 @@ $(document).ready(() => {
       console.log("App initialized successfully")
     } catch (error) {
       console.error("Error initializing app:", error)
-      showError("Error al cargar la aplicación. Por favor, recarga la página.")
+      showError(i18next.t("errors.loadingError"))
     }
   }
 
@@ -256,7 +268,6 @@ $(document).ready(() => {
     $("#mobileMenu a").on("click", closeMenu)
   }
 
-  // Mobile navbar switching
   function setupMobileNavbarSwitching() {
     const mobileNavHome = $("#mobileNavHome")
     const mobileNavOther = $("#mobileNavOther")
@@ -304,7 +315,9 @@ $(document).ready(() => {
         $("#selected-pokemon-img-mobile").attr("alt", formatPokemonName(pokemon.name))
         $("#selected-pokemon-name-mobile").text(formatPokemonName(pokemon.name))
 
-        const types = pokemon.types.map((type) => capitalizeFirst(type.type.name)).join(" / ")
+        const types = pokemon.types
+          .map((type) => i18next.t(`pokemonTypes.${type.type.name}`, { defaultValue: capitalizeFirst(type.type.name) }))
+          .join(" / ")
         $("#selected-pokemon-type-mobile").text(types)
 
         selectedDisplay.removeClass("hidden").addClass("show")
@@ -334,7 +347,6 @@ $(document).ready(() => {
     }
   }
 
-  // Reset pokeball display for mobile
   function resetPokeballMobile() {
     const pokeball = $("#pokeball-mobile")
     const selectedDisplay = $("#selected-pokemon-mobile")
@@ -346,7 +358,6 @@ $(document).ready(() => {
     $(".legendary-pokemon-card-mobile").removeClass("dimmed")
   }
 
-  // Load legendary Pokemon for hero section
   async function loadLegendaryPokemon() {
     try {
       console.log("Loading legendary Pokemon...")
@@ -403,10 +414,11 @@ $(document).ready(() => {
         $("#selected-pokemon-img").attr("alt", formatPokemonName(pokemon.name))
         $("#selected-pokemon-name").text(formatPokemonName(pokemon.name))
 
-        const types = pokemon.types.map((type) => capitalizeFirst(type.type.name)).join(" / ")
+        const types = pokemon.types
+          .map((type) => i18next.t(`pokemonTypes.${type.type.name}`, { defaultValue: capitalizeFirst(type.type.name) }))
+          .join(" / ")
         $("#selected-pokemon-type").text(types)
 
-        // Show selected Pokemon with animation
         selectedDisplay.removeClass("hidden").addClass("show")
 
         if (typeof gsap !== "undefined") {
@@ -444,15 +456,22 @@ $(document).ready(() => {
       const types = await pokemonAPI.getPokemonTypes()
       const typeFilter = $("#typeFilter")
 
+      // Clear existing options except the first one
+      typeFilter.find("option:not(:first)").remove()
+
       types.forEach((type) => {
+        const translatedType = i18next.t(`pokemonTypes.${type.name}`, { defaultValue: capitalizeFirst(type.name) })
         typeFilter.append(`
-          <option value="${type.name}" class="text-black">${capitalizeFirst(type.name)}</option>
+          <option value="${type.name}" class="text-black">${translatedType}</option>
         `)
       })
     } catch (error) {
       console.error("Error loading Pokemon types:", error)
     }
   }
+
+  // Make loadPokemonTypes available globally for language switching
+  window.loadPokemonTypes = loadPokemonTypes
 
   async function loadInitialPokemon() {
     if (isLoading) return
@@ -481,14 +500,13 @@ $(document).ready(() => {
       }
     } catch (error) {
       console.error("Error loading initial Pokemon:", error)
-      showError("Error al cargar los Pokémon. Por favor, intenta de nuevo.")
+      showError(i18next.t("errors.loadingError"))
     } finally {
       hideLoading("loadingSpinner")
       isLoading = false
     }
   }
 
-  // Load more Pokemon
   async function loadMorePokemon() {
     if (isLoading) return
 
@@ -496,7 +514,7 @@ $(document).ready(() => {
     const loadMoreBtn = $("#loadMoreBtn")
     const originalText = loadMoreBtn.html()
 
-    loadMoreBtn.html('<i class="fas fa-spinner fa-spin mr-2"></i>Cargando...')
+    loadMoreBtn.html(`<i class="fas fa-spinner fa-spin mr-2"></i>${i18next.t("loading.pokemon")}`)
 
     try {
       const pokemonList = await pokemonAPI.getPokemonList(pokemonPerPage, currentOffset)
@@ -513,14 +531,13 @@ $(document).ready(() => {
       }
     } catch (error) {
       console.error("Error loading more Pokemon:", error)
-      showError("Error al cargar más Pokémon.")
+      showError(i18next.t("errors.loadingError"))
     } finally {
       loadMoreBtn.html(originalText)
       isLoading = false
     }
   }
 
-  // Render Pokemon grid
   function renderPokemonGrid(pokemonList, append = true) {
     const grid = $("#pokemonGrid")
 
@@ -540,10 +557,12 @@ $(document).ready(() => {
 
   function createPokemonCard(pokemon) {
     const types = pokemon.types
-      .map(
-        (type) =>
-          `<span class="type-badge ${getTypeColorClass(type.type.name)}">${capitalizeFirst(type.type.name)}</span>`,
-      )
+      .map((type) => {
+        const translatedType = i18next.t(`pokemonTypes.${type.type.name}`, {
+          defaultValue: capitalizeFirst(type.type.name),
+        })
+        return `<span class="type-badge ${getTypeColorClass(type.type.name)}">${translatedType}</span>`
+      })
       .join("")
 
     const imageUrl = getPokemonArtworkUrl(pokemon.id)
@@ -586,7 +605,7 @@ $(document).ready(() => {
           
           <div class="mt-4 pt-4 border-t border-white/20">
             <div class="flex justify-between items-center text-xs text-white/70">
-              <span>Experiencia Base</span>
+              <span>${i18next.t("pokemon.baseExp")}</span>
               <span class="font-semibold">${pokemon.base_experience || "N/A"}</span>
             </div>
           </div>
@@ -666,7 +685,6 @@ $(document).ready(() => {
       filteredPokemon = localResults
       renderPokemonGrid(filteredPokemon, false)
     } else {
-      // Busqueda por nombre
       try {
         showLoading("loadingSpinner")
         const pokemon = await pokemonAPI.searchPokemon(query)
@@ -680,14 +698,14 @@ $(document).ready(() => {
               <div class="text-white/60 text-6xl mb-4">
                 <i class="fas fa-search"></i>
               </div>
-              <h3 class="text-2xl font-bold text-white mb-2">No se encontraron resultados</h3>
-              <p class="text-white/80">Intenta buscar con otro término</p>
+              <h3 class="text-2xl font-bold text-white mb-2">${i18next.t("errors.noResults")}</h3>
+              <p class="text-white/80">${i18next.t("errors.tryDifferentTerm")}</p>
             </div>
           `)
         }
       } catch (error) {
         console.error("Error searching Pokemon:", error)
-        showError("Error al buscar Pokémon.")
+        showError(i18next.t("errors.searchError"))
       } finally {
         hideLoading("loadingSpinner")
       }
@@ -702,7 +720,6 @@ $(document).ready(() => {
 
     let filtered = [...allLoadedPokemon]
 
-    // filters
     if (typeFilter) {
       filtered = filtered.filter((pokemon) => pokemon.types.some((type) => type.type.name === typeFilter))
     }
@@ -749,40 +766,37 @@ $(document).ready(() => {
   window.openPokemonDetail = openPokemonDetail
   window.closeFeaturedPokemon = closeFeaturedPokemon
 
-  // Mostrar modal de Pokémon
   async function showPokemonModal(pokemonId) {
     try {
-      // Obtener datos del Pokémon
       const pokemon = await pokemonAPI.getPokemonDetails(pokemonId)
 
-      // Actualizar contenido del modal
       $("#modalPokemonImg").attr("src", getPokemonArtworkUrl(pokemon.id))
       $("#modalPokemonName").text(formatPokemonName(pokemon.name))
       $("#modalPokemonId").text(`#${formatPokemonId(pokemon.id)}`)
 
-      // Tipos
       const types = pokemon.types
-        .map(
-          (type) =>
-            `<span class="type-badge ${getTypeColorClass(type.type.name)}">${capitalizeFirst(type.type.name)}</span>`,
-        )
+        .map((type) => {
+          const translatedType = i18next.t(`pokemonTypes.${type.type.name}`, {
+            defaultValue: capitalizeFirst(type.type.name),
+          })
+          return `<span class="type-badge ${getTypeColorClass(type.type.name)}">${translatedType}</span>`
+        })
         .join("")
       $("#modalPokemonTypes").html(types)
 
-      // Estadísticas
       const statsHTML = pokemon.stats
-        .map(
-          (stat) => `
+        .map((stat) => {
+          const translatedStat = i18next.t(`stats.${stat.stat.name}`, { defaultValue: formatStatName(stat.stat.name) })
+          return `
           <div class="stat-item">
             <div class="stat-value">${stat.base_stat}</div>
-            <div class="stat-label">${formatStatName(stat.stat.name)}</div>
+            <div class="stat-label">${translatedStat}</div>
           </div>
-        `,
-        )
+        `
+        })
         .join("")
       $("#modalPokemonStats").html(statsHTML)
 
-      // Habilidades
       const abilitiesHTML = pokemon.abilities
         .map(
           (ability) => `
@@ -792,7 +806,6 @@ $(document).ready(() => {
         .join("")
       $("#modalPokemonAbilities").html(abilitiesHTML)
 
-      // Información adicional
       $("#modalPokemonHeight").text(formatHeight(pokemon.height))
       $("#modalPokemonWeight").text(formatWeight(pokemon.weight))
       $("#modalPokemonExp").text(pokemon.base_experience || "N/A")
@@ -806,29 +819,26 @@ $(document).ready(() => {
 
       $("#pokemonModal").addClass("show")
 
-      // Prevenir scroll del body
       $("body").css("overflow", "hidden")
     } catch (error) {
       console.error("Error al mostrar modal de Pokémon:", error)
-      showError("Error al cargar los datos del Pokémon")
+      showError(i18next.t("errors.detailsError"))
     }
   }
 
-  // Cerrar modal de Pokémon
   function closePokemonModal() {
     $("#pokemonModal").removeClass("show")
     $("body").css("overflow", "auto")
   }
 
-  // Función para formatear el nombre de la estadística
   function formatStatName(statName) {
     const statNames = {
       hp: "HP",
-      attack: "Ataque",
-      defense: "Defensa",
-      "special-attack": "At. Especial",
-      "special-defense": "Def. Especial",
-      speed: "Velocidad",
+      attack: i18next.t("stats.attack"),
+      defense: i18next.t("stats.defense"),
+      "special-attack": i18next.t("stats.special-attack"),
+      "special-defense": i18next.t("stats.special-defense"),
+      speed: i18next.t("stats.speed"),
     }
     return statNames[statName] || capitalizeFirst(statName)
   }
@@ -846,4 +856,4 @@ $(document).ready(() => {
       closePokemonModal()
     }
   })
-})
+}
